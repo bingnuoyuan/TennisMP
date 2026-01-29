@@ -1,0 +1,61 @@
+<!--pages/profile/index.wxml-->
+<view class="container">
+  <!-- 用户信息区域 -->
+  <view class="user-section">
+    <view class="user-card" wx:if="{{hasUserInfo}}">
+      <image class="avatar" src="{{userInfo.avatarUrl}}" mode="aspectFill"></image>
+      <view class="user-info">
+        <view class="nickname">{{userInfo.nickName}}</view>
+        <view class="user-tag">🎾 Tennis Club Member</view>
+      </view>
+    </view>
+
+    <view class="login-card" wx:else bindtap="getUserProfile">
+      <view class="login-avatar">
+        <text class="login-icon">👤</text>
+      </view>
+      <view class="login-text">点击登录</view>
+      <view class="login-arrow">›</view>
+    </view>
+  </view>
+
+  <!-- 统计数据 -->
+  <view class="stats-section">
+    <view class="stats-item" bindtap="goToMyActivities">
+      <view class="stats-value">{{stats.totalActivities}}</view>
+      <view class="stats-label">参与活动</view>
+    </view>
+    <view class="stats-divider"></view>
+    <view class="stats-item" bindtap="goToMyActivities">
+      <view class="stats-value">{{stats.upcomingActivities}}</view>
+      <view class="stats-label">待参加</view>
+    </view>
+  </view>
+
+  <!-- 功能菜单 -->
+  <view class="menu-section">
+    <view class="menu-item" bindtap="goToMyActivities">
+      <view class="menu-icon">📋</view>
+      <view class="menu-text">我的活动</view>
+      <view class="menu-arrow">›</view>
+    </view>
+
+    <view class="menu-item" bindtap="contactService">
+      <view class="menu-icon">💬</view>
+      <view class="menu-text">联系客服</view>
+      <view class="menu-arrow">›</view>
+    </view>
+
+    <view class="menu-item" bindtap="showAbout">
+      <view class="menu-icon">ℹ️</view>
+      <view class="menu-text">关于我们</view>
+      <view class="menu-arrow">›</view>
+    </view>
+  </view>
+
+  <!-- 底部 slogan -->
+  <view class="slogan">
+    <text class="slogan-text">Just Do Tennis 🎾</text>
+  </view>
+</view>
+

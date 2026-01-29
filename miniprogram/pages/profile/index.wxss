@@ -1,0 +1,166 @@
+/* pages/profile/index.wxss */
+
+.container {
+  padding: 30rpx;
+  padding-bottom: 120rpx;
+}
+
+/* 用户信息区域 */
+.user-section {
+  margin-bottom: 30rpx;
+}
+
+.user-card {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+  border-radius: 24rpx;
+  padding: 40rpx;
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  border: 4rpx solid var(--primary-color);
+}
+
+.user-info {
+  margin-left: 30rpx;
+  flex: 1;
+}
+
+.nickname {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8rpx;
+}
+
+.user-tag {
+  font-size: 26rpx;
+  color: var(--primary-color);
+}
+
+/* 登录卡片 */
+.login-card {
+  background: var(--bg-card);
+  border-radius: 24rpx;
+  padding: 40rpx;
+  display: flex;
+  align-items: center;
+}
+
+.login-avatar {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  background: var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-icon {
+  font-size: 48rpx;
+}
+
+.login-text {
+  flex: 1;
+  margin-left: 30rpx;
+  font-size: 32rpx;
+  color: var(--text-primary);
+}
+
+.login-arrow {
+  font-size: 40rpx;
+  color: var(--text-secondary);
+}
+
+/* 统计数据 */
+.stats-section {
+  background: var(--bg-card);
+  border-radius: 24rpx;
+  padding: 40rpx 0;
+  display: flex;
+  align-items: center;
+  margin-bottom: 30rpx;
+}
+
+.stats-item {
+  flex: 1;
+  text-align: center;
+}
+
+.stats-item:active {
+  opacity: 0.7;
+}
+
+.stats-value {
+  font-size: 48rpx;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 8rpx;
+}
+
+.stats-label {
+  font-size: 26rpx;
+  color: var(--text-secondary);
+}
+
+.stats-divider {
+  width: 1rpx;
+  height: 60rpx;
+  background: var(--border-color);
+}
+
+/* 功能菜单 */
+.menu-section {
+  background: var(--bg-card);
+  border-radius: 24rpx;
+  overflow: hidden;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 36rpx 30rpx;
+  border-bottom: 1rpx solid var(--border-color);
+}
+
+.menu-item:last-child {
+  border-bottom: none;
+}
+
+.menu-item:active {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.menu-icon {
+  font-size: 40rpx;
+  margin-right: 24rpx;
+}
+
+.menu-text {
+  flex: 1;
+  font-size: 32rpx;
+  color: var(--text-primary);
+}
+
+.menu-arrow {
+  font-size: 36rpx;
+  color: var(--text-secondary);
+}
+
+/* 底部 slogan */
+.slogan {
+  text-align: center;
+  padding: 60rpx 0;
+}
+
+.slogan-text {
+  font-size: 28rpx;
+  color: var(--text-secondary);
+  letter-spacing: 2rpx;
+}
+

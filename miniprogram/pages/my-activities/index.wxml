@@ -1,0 +1,56 @@
+<!--pages/my-activities/index.wxml-->
+<view class="container">
+  <!-- 加载中 -->
+  <view class="loading-wrap" wx:if="{{loading}}">
+    <view class="loading-spinner"></view>
+    <text class="loading-text">加载中...</text>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-wrap" wx:elif="{{isEmpty}}">
+    <text class="empty-icon">📋</text>
+    <text class="empty-text">暂无报名记录</text>
+    <text class="empty-desc">快去参加活动吧！</text>
+    <navigator url="/pages/index/index" open-type="switchTab" class="btn-go">
+      去看看活动
+    </navigator>
+  </view>
+
+  <!-- 活动列表 -->
+  <view class="activity-list" wx:else>
+    <view 
+      class="activity-card" 
+      wx:for="{{activities}}" 
+      wx:key="_id"
+      bindtap="goToDetail"
+      data-id="{{item.activityId}}"
+    >
+      <view class="activity-header">
+        <view class="activity-title">{{item.activityTitle}}</view>
+        <view class="activity-status {{item.status === 'paid' ? 'status-success' : 'status-default'}}">
+          {{item.status === 'paid' ? '已报名' : '待支付'}}
+        </view>
+      </view>
+
+      <view class="activity-meta">
+        <view class="meta-item">
+          <text class="meta-icon">📅</text>
+          <text class="meta-text">{{item.activityDate}} {{item.activityTime}}</text>
+        </view>
+        <view class="meta-item">
+          <text class="meta-icon">📍</text>
+          <text class="meta-text">{{item.activityLocation}}</text>
+        </view>
+      </view>
+
+      <view class="activity-footer">
+        <view class="order-info">
+          <text class="order-label">报名时间：</text>
+          <text class="order-value">{{item.createTimeStr}}</text>
+        </view>
+        <view class="order-price">¥{{item.amount}}</view>
+      </view>
+    </view>
+  </view>
+</view>
+

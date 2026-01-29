@@ -1,0 +1,68 @@
+<!--pages/index/index.wxml-->
+<view class="container">
+  <!-- 头部 -->
+  <view class="header">
+    <view class="logo">
+      <text class="logo-text">🎾 Just Do Tennis</text>
+    </view>
+    <view class="subtitle">Nike Employee Tennis Club</view>
+  </view>
+
+  <!-- 加载中 -->
+  <view class="loading-wrap" wx:if="{{loading}}">
+    <view class="loading-spinner"></view>
+    <text class="loading-text">加载中...</text>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-wrap" wx:elif="{{isEmpty}}">
+    <text class="empty-icon">🎾</text>
+    <text class="empty-text">暂无活动</text>
+    <text class="empty-desc">敬请期待更多精彩活动</text>
+  </view>
+
+  <!-- 活动列表 -->
+  <view class="activity-list" wx:else>
+    <view class="section-title">近期活动</view>
+    
+    <view 
+      class="activity-card" 
+      wx:for="{{activities}}" 
+      wx:key="_id"
+      bindtap="goToDetail"
+      data-id="{{item._id}}"
+    >
+      <!-- 活动状态标签 -->
+      <view class="status-tag {{item.status === 'open' ? 'tag-open' : 'tag-closed'}}">
+        {{item.status === 'open' ? '报名中' : '已截止'}}
+      </view>
+      
+      <!-- 活动信息 -->
+      <view class="activity-info">
+        <view class="activity-title">{{item.title}}</view>
+        
+        <view class="activity-meta">
+          <view class="meta-item">
+            <text class="meta-icon">📅</text>
+            <text class="meta-text">{{item.date}} {{item.time}}</text>
+          </view>
+          <view class="meta-item">
+            <text class="meta-icon">📍</text>
+            <text class="meta-text">{{item.location}}</text>
+          </view>
+          <view class="meta-item">
+            <text class="meta-icon">👥</text>
+            <text class="meta-text">{{item.currentPeople || 0}}/{{item.maxPeople}}人</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 价格 -->
+      <view class="activity-price">
+        <text class="price-label">费用</text>
+        <text class="price-value">¥{{item.price}}</text>
+      </view>
+    </view>
+  </view>
+</view>
+
