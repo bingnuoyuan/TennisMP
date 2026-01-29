@@ -2,111 +2,114 @@
 
 > Just Do Tennis - Nike Employee Tennis Club Mini Program
 
-Nike 员工网球俱乐部小程序，用于组织和管理网球活动。
+A WeChat Mini Program for organizing and managing tennis activities for Nike employees.
 
-## 功能特性
+## Features
 
-- 📋 **活动列表** - 浏览近期网球活动
-- 📝 **活动报名** - 在线报名参加活动
-- 💰 **在线支付** - 微信支付活动费用
-- 👤 **个人中心** - 查看我的活动记录
+- 📋 **Activity List** - Browse upcoming tennis events
+- 📝 **Event Registration** - Sign up for activities online
+- 💰 **Online Payment** - Pay activity fees via WeChat Pay
+- 👤 **Profile Center** - View my activity history
 
-## 技术栈
+## Tech Stack
 
-- 微信小程序原生开发
-- 微信云开发（CloudBase）
-- 微信支付
+- WeChat Mini Program (Native)
+- WeChat CloudBase
+- WeChat Pay
 
-## 项目结构
+## Project Structure
 
 ```
 TennisMP/
-├── miniprogram/          # 小程序前端
-│   ├── pages/            # 页面
-│   │   ├── index/        # 首页（活动列表）
-│   │   ├── activity-detail/  # 活动详情
-│   │   ├── booking/      # 报名支付
-│   │   ├── profile/      # 个人中心
-│   │   └── my-activities/    # 我的活动
-│   ├── images/           # 图片资源
-│   ├── app.js            # 应用入口
-│   ├── app.json          # 应用配置
-│   └── app.wxss          # 全局样式
-├── cloudfunctions/       # 云函数
-│   ├── user/             # 用户相关
-│   ├── activity/         # 活动相关
-│   └── pay/              # 支付相关
-└── project.config.json   # 项目配置
+├── miniprogram/              # Mini Program Frontend
+│   ├── pages/                # Pages
+│   │   ├── index/            # Home (Activity List)
+│   │   ├── activity-detail/  # Activity Detail
+│   │   ├── booking/          # Registration & Payment
+│   │   ├── profile/          # Profile Center
+│   │   └── my-activities/    # My Activities
+│   ├── images/               # Image Assets
+│   ├── app.js                # App Entry
+│   ├── app.json              # App Configuration
+│   └── app.wxss              # Global Styles
+├── cloudfunctions/           # Cloud Functions
+│   ├── user/                 # User Related
+│   ├── activity/             # Activity Related
+│   └── pay/                  # Payment Related
+└── project.config.json       # Project Configuration
 ```
 
-## 快速开始
+## Getting Started
 
-### 1. 克隆项目
+### 1. Clone the Repository
 ```bash
 git clone https://github.com/bingnuoyuan/TennisMP.git
 cd TennisMP
 ```
 
-### 2. 开通云开发
-1. 打开微信开发者工具
-2. 导入项目
-3. 点击「云开发」按钮
-4. 开通云开发环境
+### 2. Enable Cloud Development
+1. Open WeChat DevTools
+2. Import the project
+3. Click "Cloud Development" button
+4. Create a cloud environment
 
-### 3. 创建数据库集合
-在云开发控制台创建以下集合：
-- `users` - 用户表
-- `activities` - 活动表
-- `registrations` - 报名记录表
+### 3. Create Database Collections
+Create the following collections in Cloud Console:
+- `users` - User information
+- `activities` - Activity information
+- `registrations` - Registration records
 
-### 4. 部署云函数
-右键云函数目录 → 上传并部署：云端安装依赖
+### 4. Deploy Cloud Functions
+Right-click on each cloud function folder → Upload and Deploy: Install Dependencies on Cloud
 
-### 5. 配置支付（可选）
-在 `cloudfunctions/pay/index.js` 中配置商户号
+### 5. Configure Payment (Optional)
+Configure your merchant ID in `cloudfunctions/pay/index.js`
 
-## 数据库设计
+## Database Schema
 
-### users（用户表）
-| 字段 | 类型 | 说明 |
-|------|------|------|
-| _id | string | openid |
-| nickName | string | 昵称 |
-| avatarUrl | string | 头像 |
-| isAdmin | boolean | 是否管理员 |
-| createTime | date | 创建时间 |
+### users
+| Field | Type | Description |
+|-------|------|-------------|
+| _id | string | OpenID |
+| nickName | string | Nickname |
+| avatarUrl | string | Avatar URL |
+| isAdmin | boolean | Admin flag |
+| createTime | date | Created at |
 
-### activities（活动表）
-| 字段 | 类型 | 说明 |
-|------|------|------|
-| _id | string | 活动ID |
-| title | string | 活动标题 |
-| date | string | 活动日期 |
-| time | string | 活动时间 |
-| location | string | 活动地点 |
-| price | number | 费用 |
-| maxPeople | number | 人数上限 |
-| currentPeople | number | 当前报名人数 |
-| status | string | 状态：open/closed |
+### activities
+| Field | Type | Description |
+|-------|------|-------------|
+| _id | string | Activity ID |
+| title | string | Activity title |
+| date | string | Activity date |
+| time | string | Activity time |
+| location | string | Location |
+| price | number | Price per person |
+| maxPeople | number | Maximum participants |
+| currentPeople | number | Current registrations |
+| status | string | Status: open/closed |
 
-### registrations（报名表）
-| 字段 | 类型 | 说明 |
-|------|------|------|
-| _id | string | 报名ID |
-| orderId | string | 订单号 |
-| activityId | string | 活动ID |
-| userId | string | 用户openid |
-| userName | string | 姓名 |
-| phone | string | 手机号 |
-| amount | number | 金额 |
-| paymentStatus | string | 支付状态 |
-| createTime | date | 创建时间 |
+### registrations
+| Field | Type | Description |
+|-------|------|-------------|
+| _id | string | Registration ID |
+| orderId | string | Order number |
+| activityId | string | Activity ID |
+| userId | string | User OpenID |
+| userName | string | User name |
+| phone | string | Phone number |
+| amount | number | Amount paid |
+| paymentStatus | string | Payment status |
+| createTime | date | Created at |
 
-## 许可证
+## Contributing
 
-MIT License
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
 
 ---
 
 **Just Do Tennis! 🎾**
-
