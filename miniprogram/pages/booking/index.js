@@ -6,7 +6,7 @@ Page({
     activityId: '',
     activityTitle: '',
     price: 0,
-    phone: '',
+    email: '',
     name: '',
     submitting: false
   },
@@ -19,77 +19,88 @@ Page({
     });
   },
 
-  // 输入姓名
+  // Name input
   onNameInput: function (e) {
     this.setData({ name: e.detail.value });
   },
 
-  // 输入手机号
-  onPhoneInput: function (e) {
-    this.setData({ phone: e.detail.value });
+  // Email input
+  onEmailInput: function (e) {
+    this.setData({ email: e.detail.value });
   },
 
-  // 获取手机号（通过按钮授权）
-  getPhoneNumber: function (e) {
-    if (e.detail.code) {
-      // 通过 code 获取手机号（需要云函数解密）
-      wx.cloud.callFunction({
-        name: 'user',
-        data: {
-          action: 'getPhoneNumber',
-          code: e.detail.code
-        }
-      }).then(res => {
-        if (res.result && res.result.phoneNumber) {
-          this.setData({ phone: res.result.phoneNumber });
-        }
-      }).catch(err => {
-        console.error('获取手机号失败', err);
-      });
-    }
-  },
-
-  // 提交报名
+  // Submit booking
   submitBooking: function () {
-    const { activityId, name, phone, price, submitting } = this.data;
+    const { activityId, name, email, price, submitting, activityTitle } = this.data;
 
     if (submitting) return;
 
-    // 验证
+    // Validation
     if (!name.trim()) {
-      wx.showToast({ title: '请输入姓名', icon: 'none' });
+      wx.showToast({ title: 'Please enter your name', icon: 'none' });
       return;
     }
 
-    if (!phone || !/^1\d{10}$/.test(phone)) {
-      wx.showToast({ title: '请输入正确的手机号', icon: 'none' });
+    if (!email || !/^[^\s@]+@nike\.com$/i.test(email)) {
+      wx.showToast({ title: 'Please use your @nike.com email', icon: 'none' });
       return;
     }
 
     this.setData({ submitting: true });
 
-    // 调用云函数创建订单并支付
+    // ========== Mock ==========
+    const USE_MOCK = true;
+    
+    if (USE_MOCK) {
+      // Mock: simulate payment success after delay
+      setTimeout(() => {
+        wx.showModal({
+          title: 'Payment',
+          content: `Pay ¥${price} for "${activityTitle}"?`,
+          confirmText: 'Pay',
+          cancelText: 'Cancel',
+          success: (res) => {
+            if (res.confirm) {
+              wx.showToast({
+                title: 'Booking Success!',
+                icon: 'success'
+              });
+              setTimeout(() => {
+                wx.navigateBack();
+              }, 1500);
+            } else {
+              wx.showToast({ title: 'Payment cancelled', icon: 'none' });
+            }
+            this.setData({ submitting: false });
+          }
+        });
+      }, 500);
+      return;
+    }
+    // ========== Mock End ==========
+
+    // Call cloud function to create order and pay
     wx.cloud.callFunction({
       name: 'pay',
       data: {
         action: 'createOrder',
         activityId: activityId,
         name: name.trim(),
-        phone: phone,
+        email: email,
         amount: price
       }
     }).then(res => {
-      console.log('创建订单成功', res.result);
+      console.log('Order created', res.result);
       
       if (res.result.success) {
-        // 调起微信支付
+        // Invoke WeChat payment
         const payment = res.result.payment;
         wx.requestPayment({
           ...payment,
           success: (payRes) => {
-            console.log('支付成功', payRes);
+            console.log('Payment success', payRes);
             wx.showToast({
-              title: '报名成功！',
+              title: 'Booking Success!',
               icon: 'success'
             });
             setTimeout(() => {
@@ -97,11 +108,11 @@ Page({
             }, 1500);
           },
           fail: (payErr) => {
-            console.log('支付取消或失败', payErr);
+            console.log('Payment failed or cancelled', payErr);
             if (payErr.errMsg.includes('cancel')) {
-              wx.showToast({ title: '支付已取消', icon: 'none' });
+              wx.showToast({ title: 'Payment cancelled', icon: 'none' });
             } else {
-              wx.showToast({ title: '支付失败', icon: 'none' });
+              wx.showToast({ title: 'Payment failed', icon: 'none' });
             }
           },
           complete: () => {
@@ -110,15 +121,15 @@ Page({
         });
       } else {
         wx.showToast({
-          title: res.result.message || '创建订单失败',
+          title: res.result.message || 'Failed to create order',
           icon: 'none'
         });
         this.setData({ submitting: false });
       }
     }).catch(err => {
-      console.error('创建订单失败', err);
+      console.error('Failed to create order', err);
       wx.showToast({
-        title: '网络错误，请重试',
+        title: 'Network error, please retry',
         icon: 'none'
       });
       this.setData({ submitting: false });

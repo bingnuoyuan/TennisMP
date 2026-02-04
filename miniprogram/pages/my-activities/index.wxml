@@ -1,22 +1,22 @@
 <!--pages/my-activities/index.wxml-->
 <view class="container">
-  <!-- 加载中 -->
+  <!-- Loading -->
   <view class="loading-wrap" wx:if="{{loading}}">
     <view class="loading-spinner"></view>
-    <text class="loading-text">加载中...</text>
+    <text class="loading-text">Loading...</text>
   </view>
 
-  <!-- 空状态 -->
+  <!-- Empty State -->
   <view class="empty-wrap" wx:elif="{{isEmpty}}">
     <text class="empty-icon">📋</text>
-    <text class="empty-text">暂无报名记录</text>
-    <text class="empty-desc">快去参加活动吧！</text>
+    <text class="empty-text">No Bookings Yet</text>
+    <text class="empty-desc">Join an event now!</text>
     <navigator url="/pages/index/index" open-type="switchTab" class="btn-go">
-      去看看活动
+      Browse Events
     </navigator>
   </view>
 
-  <!-- 活动列表 -->
+  <!-- Activity List -->
   <view class="activity-list" wx:else>
     <view 
       class="activity-card" 
@@ -28,7 +28,7 @@
       <view class="activity-header">
         <view class="activity-title">{{item.activityTitle}}</view>
         <view class="activity-status {{item.status === 'paid' ? 'status-success' : 'status-default'}}">
-          {{item.status === 'paid' ? '已报名' : '待支付'}}
+          {{item.status === 'paid' ? 'Registered' : 'Pending'}}
         </view>
       </view>
 
@@ -45,7 +45,7 @@
 
       <view class="activity-footer">
         <view class="order-info">
-          <text class="order-label">报名时间：</text>
+          <text class="order-label">Booked: </text>
           <text class="order-value">{{item.createTimeStr}}</text>
         </view>
         <view class="order-price">¥{{item.amount}}</view>

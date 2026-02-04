@@ -1,4 +1,12 @@
 <!--pages/index/index.wxml-->
+<wxs module="dateUtil">
+  module.exports.getDay = function(dateStr) {
+    if (!dateStr) return '';
+    var parts = dateStr.split('-');
+    return parts.length === 3 ? parseInt(parts[2]) : '';
+  }
+</wxs>
+
 <view class="container">
   <!-- 头部 -->
   <view class="header">
@@ -8,22 +16,22 @@
     <view class="subtitle">Nike Employee Tennis Club</view>
   </view>
 
-  <!-- 加载中 -->
+  <!-- Loading -->
   <view class="loading-wrap" wx:if="{{loading}}">
     <view class="loading-spinner"></view>
-    <text class="loading-text">加载中...</text>
+    <text class="loading-text">Loading...</text>
   </view>
 
-  <!-- 空状态 -->
+  <!-- Empty State -->
   <view class="empty-wrap" wx:elif="{{isEmpty}}">
     <text class="empty-icon">🎾</text>
-    <text class="empty-text">暂无活动</text>
-    <text class="empty-desc">敬请期待更多精彩活动</text>
+    <text class="empty-text">No Events</text>
+    <text class="empty-desc">Stay tuned for more events</text>
   </view>
 
-  <!-- 活动列表 -->
+  <!-- Activity List -->
   <view class="activity-list" wx:else>
-    <view class="section-title">近期活动</view>
+    <view class="section-title">Upcoming Events</view>
     
     <view 
       class="activity-card" 
@@ -32,18 +40,21 @@
       bindtap="goToDetail"
       data-id="{{item._id}}"
     >
-      <!-- 活动状态标签 -->
+      <!-- Status Tag -->
       <view class="status-tag {{item.status === 'open' ? 'tag-open' : 'tag-closed'}}">
-        {{item.status === 'open' ? '报名中' : '已截止'}}
+        {{item.status === 'open' ? 'Open' : 'Closed'}}
       </view>
       
-      <!-- 活动信息 -->
+      <!-- Activity Info -->
       <view class="activity-info">
         <view class="activity-title">{{item.title}}</view>
         
         <view class="activity-meta">
           <view class="meta-item">
-            <text class="meta-icon">📅</text>
+            <view class="calendar-icon">
+              <view class="calendar-header"></view>
+              <view class="calendar-day">{{dateUtil.getDay(item.date)}}</view>
+            </view>
             <text class="meta-text">{{item.date}} {{item.time}}</text>
           </view>
           <view class="meta-item">
@@ -52,14 +63,14 @@
           </view>
           <view class="meta-item">
             <text class="meta-icon">👥</text>
-            <text class="meta-text">{{item.currentPeople || 0}}/{{item.maxPeople}}人</text>
+            <text class="meta-text">{{item.currentPeople || 0}}/{{item.maxPeople}}</text>
           </view>
         </view>
       </view>
 
-      <!-- 价格 -->
+      <!-- Price -->
       <view class="activity-price">
-        <text class="price-label">费用</text>
+        <text class="price-label">Fee</text>
         <text class="price-value">¥{{item.price}}</text>
       </view>
     </view>

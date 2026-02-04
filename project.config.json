@@ -35,14 +35,27 @@
     "packNpmRelationList": [],
     "minifyWXSS": true,
     "showES6CompileOption": false,
-    "minifyWXML": true
+    "minifyWXML": true,
+    "compileWorklet": false,
+    "localPlugins": false,
+    "disableUseStrict": false,
+    "useCompilerPlugins": false,
+    "condition": false,
+    "swc": false,
+    "disableSWC": true
   },
   "appid": "wx1fdebfec52a4a1f9",
   "projectname": "TennisMP",
-  "libVersion": "3.3.4",
+  "libVersion": "2.32.3",
   "cloudfunctionTemplateRoot": "cloudfunctionTemplate/",
   "condition": {},
   "srcMiniprogramRoot": "miniprogram/",
-  "description": "Nike Employee Tennis Club Mini Program"
+  "description": "Nike Employee Tennis Club Mini Program",
+  "compileType": "miniprogram",
+  "simulatorPluginLibVersion": {},
+  "packOptions": {
+    "ignore": [],
+    "include": []
+  },
+  "editorSetting": {}
 }
-

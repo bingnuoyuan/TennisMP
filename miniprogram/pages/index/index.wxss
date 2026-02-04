@@ -149,6 +149,35 @@
   margin-right: 12rpx;
 }
 
+/* Custom Calendar Icon */
+.calendar-icon {
+  width: 36rpx;
+  height: 40rpx;
+  border: 2rpx solid #555555;
+  border-radius: 6rpx;
+  margin-right: 12rpx;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #1a1a1a;
+}
+
+.calendar-icon .calendar-header {
+  height: 12rpx;
+  background: #E53935;
+}
+
+.calendar-icon .calendar-day {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18rpx;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1;
+}
+
 .meta-text {
   font-size: 28rpx;
   color: var(--text-secondary);

@@ -9,24 +9,24 @@
   "window": {
     "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#111111",
-    "navigationBarTitleText": "Just Do Tennis",
+    "navigationBarTitleText": "",
     "navigationBarTextStyle": "white"
   },
   "tabBar": {
     "color": "#999999",
     "selectedColor": "#CCFF00",
     "backgroundColor": "#111111",
-    "borderStyle": "black",
+    "borderStyle": "white",
     "list": [
       {
         "pagePath": "pages/index/index",
-        "text": "活动",
+        "text": "Events",
         "iconPath": "images/tab-activity.png",
         "selectedIconPath": "images/tab-activity-active.png"
       },
       {
         "pagePath": "pages/profile/index",
-        "text": "我的",
+        "text": "Profile",
         "iconPath": "images/tab-profile.png",
         "selectedIconPath": "images/tab-profile-active.png"
       }

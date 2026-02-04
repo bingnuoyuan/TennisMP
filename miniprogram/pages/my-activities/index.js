@@ -16,10 +16,63 @@ Page({
     });
   },
 
-  // 加载我的活动
+  // Load my activities
   loadMyActivities: function () {
     const that = this;
     this.setData({ loading: true });
+
+    // ========== Mock Data ==========
+    const USE_MOCK = true;
+    
+    if (USE_MOCK) {
+      const mockActivities = [
+        {
+          _id: 'reg_001',
+          activityId: 'mock_001',
+          activityTitle: 'Tennis Training',
+          activityDate: '2026-02-05',
+          activityTime: '18:00-20:00',
+          activityLocation: 'OMC · One More Club',
+          amount: 70,
+          status: 'paid',
+          createTimeStr: '1/28 14:30'
+        },
+        {
+          _id: 'reg_002',
+          activityId: 'mock_002',
+          activityTitle: 'Singles Match',
+          activityDate: '2026-02-12',
+          activityTime: '18:00-20:00',
+          activityLocation: 'OMC · One More Club',
+          amount: 70,
+          status: 'paid',
+          createTimeStr: '1/30 10:15'
+        },
+        {
+          _id: 'reg_003',
+          activityId: 'mock_003',
+          activityTitle: 'Doubles Match',
+          activityDate: '2026-01-15',
+          activityTime: '18:00-20:00',
+          activityLocation: 'OMC · One More Club',
+          amount: 70,
+          status: 'paid',
+          createTimeStr: '1/10 09:00'
+        }
+      ];
+
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          that.setData({
+            activities: mockActivities,
+            loading: false,
+            isEmpty: false
+          });
+          resolve();
+        }, 300);
+      });
+    }
+    // ========== Mock Data End ==========
 
     return wx.cloud.callFunction({
       name: 'activity',
@@ -27,7 +80,7 @@ Page({
         action: 'myList'
       }
     }).then(res => {
-      console.log('我的活动', res.result);
+      console.log('My activities', res.result);
       const activities = res.result.data || [];
       that.setData({
         activities: activities,
@@ -35,7 +88,7 @@ Page({
         isEmpty: activities.length === 0
       });
     }).catch(err => {
-      console.error('获取我的活动失败', err);
+      console.error('Failed to load activities', err);
       that.setData({
         loading: false,
         isEmpty: true
@@ -43,7 +96,7 @@ Page({
     });
   },
 
-  // 跳转到活动详情
+  // Go to activity detail
   goToDetail: function (e) {
     const id = e.currentTarget.dataset.id;
     wx.navigateTo({
@@ -51,15 +104,15 @@ Page({
     });
   },
 
-  // 获取状态文字
+  // Get status text
   getStatusText: function (status, activityDate) {
     const now = new Date();
     const date = new Date(activityDate);
     
-    if (status === 'cancelled') return '已取消';
-    if (status === 'refunded') return '已退款';
-    if (date < now) return '已结束';
-    return '待参加';
+    if (status === 'cancelled') return 'Cancelled';
+    if (status === 'refunded') return 'Refunded';
+    if (date < now) return 'Completed';
+    return 'Upcoming';
   }
 });
 

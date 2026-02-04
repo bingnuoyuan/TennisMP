@@ -1,27 +1,27 @@
 <!--pages/activity-detail/index.wxml-->
 <view class="container">
-  <!-- 加载中 -->
+  <!-- Loading -->
   <view class="loading-wrap" wx:if="{{loading}}">
     <view class="loading-spinner"></view>
-    <text class="loading-text">加载中...</text>
+    <text class="loading-text">Loading...</text>
   </view>
 
-  <!-- 活动详情 -->
+  <!-- Event Details -->
   <block wx:elif="{{activity}}">
-    <!-- 活动头部 -->
+    <!-- Event Header -->
     <view class="activity-header">
       <view class="status-tag {{activity.status === 'open' ? 'tag-open' : 'tag-closed'}}">
-        {{activity.status === 'open' ? '报名中' : '已截止'}}
+        {{activity.status === 'open' ? 'Open' : 'Closed'}}
       </view>
       <view class="activity-title">{{activity.title}}</view>
     </view>
 
-    <!-- 活动信息卡片 -->
+    <!-- Event Info Card -->
     <view class="info-card">
       <view class="info-item">
         <view class="info-icon">📅</view>
         <view class="info-content">
-          <view class="info-label">活动时间</view>
+          <view class="info-label">Date & Time</view>
           <view class="info-value">{{activity.date}} {{activity.time}}</view>
         </view>
       </view>
@@ -29,7 +29,7 @@
       <view class="info-item">
         <view class="info-icon">📍</view>
         <view class="info-content">
-          <view class="info-label">活动地点</view>
+          <view class="info-label">Location</view>
           <view class="info-value">{{activity.location}}</view>
         </view>
       </view>
@@ -37,11 +37,11 @@
       <view class="info-item">
         <view class="info-icon">👥</view>
         <view class="info-content">
-          <view class="info-label">参与人数</view>
+          <view class="info-label">Participants</view>
           <view class="info-value">
             <text class="people-current">{{activity.currentPeople || 0}}</text>
             <text class="people-divider">/</text>
-            <text class="people-max">{{activity.maxPeople}}人</text>
+            <text class="people-max">{{activity.maxPeople}}</text>
           </view>
         </view>
       </view>
@@ -49,35 +49,35 @@
       <view class="info-item">
         <view class="info-icon">💰</view>
         <view class="info-content">
-          <view class="info-label">活动费用</view>
-          <view class="info-value price">¥{{activity.price}}/人</view>
+          <view class="info-label">Fee</view>
+          <view class="info-value price">¥{{activity.price}}/person</view>
         </view>
       </view>
     </view>
 
-    <!-- 活动描述 -->
+    <!-- Event Description -->
     <view class="desc-card" wx:if="{{activity.description}}">
-      <view class="card-title">活动详情</view>
+      <view class="card-title">Description</view>
       <view class="desc-content">{{activity.description}}</view>
     </view>
 
-    <!-- 注意事项 -->
+    <!-- Notice -->
     <view class="notice-card">
-      <view class="card-title">注意事项</view>
+      <view class="card-title">Notice</view>
       <view class="notice-list">
-        <view class="notice-item">1. 请提前10分钟到达场地签到</view>
-        <view class="notice-item">2. 请自备球拍，现场提供网球</view>
-        <view class="notice-item">3. 活动开始前24小时可申请退款</view>
-        <view class="notice-item">4. 雨天活动将另行通知</view>
+        <view class="notice-item">1. Please arrive 10 minutes early for check-in</view>
+        <view class="notice-item">2. Bring your own racket, balls provided</view>
+        <view class="notice-item">3. Refund available 24 hours before event</view>
+        <view class="notice-item">4. Rain policy: will notify if rescheduled</view>
       </view>
     </view>
   </block>
 </view>
 
-<!-- 底部按钮 -->
+<!-- Bottom Bar -->
 <view class="bottom-bar" wx:if="{{activity}}">
   <view class="price-info">
-    <text class="price-label">费用</text>
+    <text class="price-label">Fee</text>
     <text class="price-amount">¥{{activity.price}}</text>
   </view>
   
@@ -85,7 +85,7 @@
     class="btn-register {{isRegistered ? 'btn-disabled' : (canRegister ? '' : 'btn-disabled')}}"
     bindtap="goToBooking"
   >
-    {{isRegistered ? '已报名' : (canRegister ? '立即报名' : '报名已截止')}}
+    {{isRegistered ? 'Registered' : (canRegister ? 'Register Now' : 'Registration Closed')}}
   </view>
 </view>
 
