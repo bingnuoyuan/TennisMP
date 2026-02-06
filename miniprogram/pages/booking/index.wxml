@@ -26,17 +26,28 @@
       />
     </view>
 
-    <!-- Email -->
+    <!-- Phone -->
     <view class="form-item">
-      <view class="form-label">Email</view>
-      <input 
-        class="form-input"
-        type="text"
-        placeholder="Enter your email"
-        placeholder-class="placeholder"
-        value="{{email}}"
-        bindinput="onEmailInput"
-      />
+      <view class="form-label">Phone</view>
+      <view class="phone-row">
+        <text class="phone-value" wx:if="{{phone}}">{{phone}}</text>
+        <button 
+          wx:else
+          class="btn-get-phone"
+          open-type="getPhoneNumber"
+          bindgetphonenumber="onGetPhoneNumber"
+        >
+          Tap to Authorize
+        </button>
+        <button 
+          wx:if="{{phone}}"
+          class="btn-change-phone"
+          open-type="getPhoneNumber"
+          bindgetphonenumber="onGetPhoneNumber"
+        >
+          Change
+        </button>
+      </view>
     </view>
   </view>
 
@@ -73,4 +84,5 @@
     {{submitting ? 'Submitting...' : 'Confirm'}}
   </view>
 </view>
+
 

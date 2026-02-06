@@ -40,6 +40,24 @@
       <view class="menu-arrow">›</view>
     </view>
 
+    <view class="menu-item" bindtap="goToMyStats">
+      <view class="menu-icon">📊</view>
+      <view class="menu-text">My Stats</view>
+      <view class="menu-arrow">›</view>
+    </view>
+
+    <view class="menu-item" bindtap="goToPhotoGallery">
+      <view class="menu-icon">📸</view>
+      <view class="menu-text">Photo Gallery</view>
+      <view class="menu-arrow">›</view>
+    </view>
+
+    <view class="menu-item" bindtap="goToClubFunds">
+      <view class="menu-icon">💰</view>
+      <view class="menu-text">Club Funds</view>
+      <view class="menu-arrow">›</view>
+    </view>
+
     <view class="menu-item" bindtap="contactService">
       <view class="menu-icon">💬</view>
       <view class="menu-text">Contact Us</view>
@@ -58,4 +76,25 @@
     <text class="slogan-text">Just Do Tennis 🎾</text>
   </view>
 </view>
+
+<!-- QR Code Popup -->
+<view class="popup-mask" wx:if="{{showQRPopup}}" bindtap="closeQRPopup">
+  <view class="popup-content" catchtap="preventClose">
+    <view class="popup-header">
+      <text class="popup-title">Join Our Group</text>
+      <view class="popup-close" bindtap="closeQRPopup">×</view>
+    </view>
+    <view class="popup-body">
+      <image 
+        class="qr-image" 
+        src="/images/assistant-qrcode.jpg" 
+        mode="aspectFit"
+        show-menu-by-longpress="{{true}}"
+      />
+      <view class="qr-tip">Long press to save QR code</view>
+      <view class="qr-note">Add group assistant to join</view>
+    </view>
+  </view>
+</view>
+
 

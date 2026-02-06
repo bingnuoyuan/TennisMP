@@ -13,7 +13,6 @@
     <view class="logo">
       <text class="logo-text">🎾 Just Do Tennis</text>
     </view>
-    <view class="subtitle">Nike Employee Tennis Club</view>
   </view>
 
   <!-- Loading -->
@@ -76,4 +75,5 @@
     </view>
   </view>
 </view>
+
 

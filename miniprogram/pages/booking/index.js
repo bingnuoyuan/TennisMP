@@ -6,7 +6,7 @@ Page({
     activityId: '',
     activityTitle: '',
     price: 0,
-    email: '',
+    phone: '',
     name: '',
     submitting: false
   },
@@ -24,14 +24,44 @@ Page({
     this.setData({ name: e.detail.value });
   },
 
-  // Email input
-  onEmailInput: function (e) {
-    this.setData({ email: e.detail.value });
+  // Get phone number from WeChat
+  onGetPhoneNumber: function (e) {
+    if (e.detail.errMsg === 'getPhoneNumber:ok') {
+      // ========== Mock ==========
+      const USE_MOCK = true;
+      
+      if (USE_MOCK) {
+        // Mock: simulate phone number
+        this.setData({ phone: '138****8888' });
+        wx.showToast({ title: 'Phone number obtained', icon: 'success' });
+        return;
+      }
+      // ========== Mock End ==========
+
+      // Real: call cloud function to decrypt phone number
+      wx.cloud.callFunction({
+        name: 'user',
+        data: {
+          action: 'getPhoneNumber',
+          cloudID: e.detail.cloudID
+        }
+      }).then(res => {
+        if (res.result && res.result.phoneNumber) {
+          this.setData({ phone: res.result.phoneNumber });
+          wx.showToast({ title: 'Phone number obtained', icon: 'success' });
+        }
+      }).catch(err => {
+        console.error('Failed to get phone number', err);
+        wx.showToast({ title: 'Failed to get phone', icon: 'none' });
+      });
+    } else {
+      wx.showToast({ title: 'Authorization cancelled', icon: 'none' });
+    }
   },
 
   // Submit booking
   submitBooking: function () {
-    const { activityId, name, email, price, submitting, activityTitle } = this.data;
+    const { activityId, name, phone, price, submitting, activityTitle } = this.data;
 
     if (submitting) return;
 
@@ -41,8 +71,8 @@ Page({
       return;
     }
 
-    if (!email || !/^[^\s@]+@nike\.com$/i.test(email)) {
-      wx.showToast({ title: 'Please use your @nike.com email', icon: 'none' });
+    if (!phone) {
+      wx.showToast({ title: 'Please authorize your phone number', icon: 'none' });
       return;
     }
 
@@ -86,7 +116,7 @@ Page({
         action: 'createOrder',
         activityId: activityId,
         name: name.trim(),
-        email: email,
+        phone: phone,
         amount: price
       }
     }).then(res => {
@@ -136,4 +166,5 @@ Page({
     });
   }
 });
+
 

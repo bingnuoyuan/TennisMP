@@ -88,4 +88,3 @@
     {{isRegistered ? 'Registered' : (canRegister ? 'Register Now' : 'Registration Closed')}}
   </view>
 </view>
-

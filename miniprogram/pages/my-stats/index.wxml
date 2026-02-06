@@ -1,0 +1,93 @@
+<!--pages/my-stats/index.wxml-->
+<view class="container">
+  <!-- Header Stats Cards -->
+  <view class="stats-cards">
+    <view class="stats-card">
+      <view class="stats-number">{{stats.totalJoined}}</view>
+      <view class="stats-label">Joined</view>
+    </view>
+    <view class="stats-card">
+      <view class="stats-number warning">{{stats.cancelled}}</view>
+      <view class="stats-label">Cancelled</view>
+    </view>
+    <view class="stats-card">
+      <view class="stats-number highlight">{{stats.attendanceRate}}%</view>
+      <view class="stats-label">Attendance</view>
+    </view>
+  </view>
+
+  <!-- Warning Banner -->
+  <view class="warning-banner" wx:if="{{stats.currentWarnings > 0}}">
+    <text class="warning-icon">⚠️</text>
+    <text class="warning-text">Late Cancellation Warnings: {{stats.currentWarnings}}/2 this month</text>
+  </view>
+
+  <!-- Monthly Participation -->
+  <view class="section-card">
+    <view class="section-title">Monthly Participation</view>
+    <view class="chart-bar-list">
+      <view class="chart-bar-item" wx:for="{{monthlyData}}" wx:key="month">
+        <view class="bar-label">{{item.month}}</view>
+        <view class="bar-track">
+          <view class="bar-fill" style="width: {{item.percentage}}%"></view>
+        </view>
+        <view class="bar-value">{{item.count}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- Activity Types -->
+  <view class="section-card">
+    <view class="section-title">Activity Types</view>
+    <view class="type-list">
+      <view class="type-item" wx:for="{{activityTypes}}" wx:key="type">
+        <view class="type-icon">{{item.icon}}</view>
+        <view class="type-info">
+          <view class="type-name">{{item.name}}</view>
+          <view class="type-bar-track">
+            <view class="type-bar-fill" style="width: {{item.percentage}}%"></view>
+          </view>
+        </view>
+        <view class="type-percentage">{{item.percentage}}%</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- Summary -->
+  <view class="section-card summary-card">
+    <view class="summary-row">
+      <text class="summary-label">Total Events</text>
+      <text class="summary-value">{{stats.totalJoined}}</text>
+    </view>
+    <view class="summary-row">
+      <text class="summary-label">Total Spent</text>
+      <text class="summary-value highlight">¥{{stats.totalSpent}}</text>
+    </view>
+    <view class="summary-row">
+      <text class="summary-label">Member Since</text>
+      <text class="summary-value">{{stats.memberSince}}</text>
+    </view>
+  </view>
+
+  <!-- Recent Activity -->
+  <view class="section-card">
+    <view class="section-title">Recent Activity</view>
+    <view class="activity-timeline">
+      <view class="timeline-item" wx:for="{{recentActivities}}" wx:key="_id">
+        <view class="timeline-dot {{item.status}}"></view>
+        <view class="timeline-content">
+          <view class="timeline-title">{{item.title}}</view>
+          <view class="timeline-meta">
+            <text class="timeline-date">{{item.date}}</text>
+            <text class="timeline-status {{item.status}}">{{item.statusText}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="empty-timeline" wx:if="{{recentActivities.length === 0}}">
+      <text>No activity records yet</text>
+    </view>
+  </view>
+</view>
+
+

@@ -8,7 +8,8 @@ Page({
     stats: {
       totalActivities: 0,
       upcomingActivities: 0
-    }
+    },
+    showQRPopup: false
   },
 
   onLoad: function () {
@@ -136,12 +137,40 @@ Page({
     });
   },
 
-  // Contact support
-  contactService: function () {
-    wx.showToast({
-      title: 'Please contact group admin',
-      icon: 'none'
+  // Go to my stats
+  goToMyStats: function () {
+    wx.navigateTo({
+      url: '/pages/my-stats/index'
     });
+  },
+
+  // Go to photo gallery
+  goToPhotoGallery: function () {
+    wx.navigateTo({
+      url: '/pages/photo-gallery/index'
+    });
+  },
+
+  // Go to club funds
+  goToClubFunds: function () {
+    wx.navigateTo({
+      url: '/pages/club-funds/index'
+    });
+  },
+
+  // Contact support - show QR popup
+  contactService: function () {
+    this.setData({ showQRPopup: true });
+  },
+
+  // Close QR popup
+  closeQRPopup: function () {
+    this.setData({ showQRPopup: false });
+  },
+
+  // Prevent popup close when tapping content
+  preventClose: function () {
+    // Do nothing, just prevent event bubbling
   },
 
   // About
@@ -154,4 +183,5 @@ Page({
     });
   }
 });
+
 

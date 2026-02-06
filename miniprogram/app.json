@@ -4,7 +4,10 @@
     "pages/activity-detail/index",
     "pages/booking/index",
     "pages/profile/index",
-    "pages/my-activities/index"
+    "pages/my-activities/index",
+    "pages/my-stats/index",
+    "pages/photo-gallery/index",
+    "pages/club-funds/index"
   ],
   "window": {
     "backgroundTextStyle": "dark",
@@ -36,4 +39,5 @@
   "sitemapLocation": "sitemap.json",
   "style": "v2"
 }
+
 

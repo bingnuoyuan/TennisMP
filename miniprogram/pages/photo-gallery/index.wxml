@@ -1,0 +1,81 @@
+<!--pages/photo-gallery/index.wxml-->
+<view class="container">
+  <!-- Loading -->
+  <view class="loading" wx:if="{{loading}}">
+    <view class="loading-spinner"></view>
+    <text class="loading-text">Loading photos...</text>
+  </view>
+
+  <!-- Empty State -->
+  <view class="empty-state" wx:elif="{{albums.length === 0}}">
+    <view class="empty-icon">📷</view>
+    <view class="empty-text">No photos yet</view>
+    <view class="empty-hint">Photos from events will appear here</view>
+  </view>
+
+  <!-- Photo Albums -->
+  <view class="albums" wx:else>
+    <block wx:for="{{albums}}" wx:key="id" wx:for-index="albumIndex">
+      <view class="album-card">
+        <!-- Album Header -->
+        <view class="album-header">
+          <view class="album-icon">🎾</view>
+          <view class="album-info">
+            <view class="album-title">{{item.dateFormatted}}</view>
+            <view class="album-subtitle">{{item.subtitle}}</view>
+          </view>
+          <view class="album-count">{{item.photos.length}} photos</view>
+        </view>
+
+        <!-- Photo Grid -->
+        <view class="photo-grid">
+          <block wx:for="{{item.photos}}" wx:key="id" wx:for-item="photo" wx:for-index="photoIndex">
+            <view 
+              class="photo-item"
+              data-album-index="{{albumIndex}}"
+              data-photo-index="{{photoIndex}}"
+              bindtap="previewPhoto"
+            >
+              <image 
+                class="photo-image" 
+                src="{{photo.thumbnail}}" 
+                mode="aspectFill"
+                lazy-load="{{true}}"
+              />
+            </view>
+          </block>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <!-- Bottom Tip -->
+  <view class="bottom-tip" wx:if="{{!loading && albums.length > 0}}">
+    <text>Tap photo to view full size</text>
+  </view>
+</view>
+
+<!-- Photo Preview Modal -->
+<view class="preview-modal" wx:if="{{showPreview}}" bindtap="closePreview">
+  <view class="preview-header">
+    <text class="preview-counter">{{currentPreviewIndex + 1}} / {{previewPhotos.length}}</text>
+    <view class="preview-close" catchtap="closePreview">✕</view>
+  </view>
+  <swiper 
+    class="preview-swiper" 
+    current="{{currentPreviewIndex}}"
+    bindchange="onPreviewChange"
+    catchtap="stopPropagation"
+  >
+    <swiper-item wx:for="{{previewPhotos}}" wx:key="id">
+      <image 
+        class="preview-image" 
+        src="{{item.url}}" 
+        mode="aspectFit"
+        show-menu-by-longpress="{{true}}"
+      />
+    </swiper-item>
+  </swiper>
+  <view class="preview-tip">Long press to save photo</view>
+</view>
+

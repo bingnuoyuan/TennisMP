@@ -1,0 +1,114 @@
+<!--pages/club-funds/index.wxml-->
+<view class="container">
+  <!-- Loading -->
+  <view class="loading" wx:if="{{loading}}">
+    <view class="loading-spinner"></view>
+    <text class="loading-text">Loading...</text>
+  </view>
+
+  <!-- No Permission -->
+  <view class="no-permission" wx:elif="{{!hasPermission}}">
+    <view class="no-permission-icon">🔒</view>
+    <view class="no-permission-title">Access Restricted</view>
+    <view class="no-permission-text">Fund records are only visible to administrators</view>
+  </view>
+
+  <!-- Main Content -->
+  <block wx:else>
+    <!-- Summary Section -->
+    <view class="summary-section">
+      <!-- Balance Card -->
+      <view class="balance-card">
+        <view class="balance-label">💰 Current Balance</view>
+        <view class="balance-amount">¥ {{summary.balance}}</view>
+      </view>
+
+      <!-- Income & Expense Cards -->
+      <view class="stats-row">
+        <view class="stat-card income">
+          <view class="stat-icon">📈</view>
+          <view class="stat-info">
+            <view class="stat-amount">¥ {{summary.totalIncome}}</view>
+            <view class="stat-label">Total Income</view>
+          </view>
+        </view>
+        <view class="stat-card expense">
+          <view class="stat-icon">📉</view>
+          <view class="stat-info">
+            <view class="stat-amount">¥ {{summary.totalExpense}}</view>
+            <view class="stat-label">Total Expense</view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- Records Section -->
+    <view class="records-section">
+      <view class="section-title">Weekly Records</view>
+      
+      <view class="records-list">
+        <block wx:for="{{records}}" wx:key="id">
+          <view class="record-card">
+            <!-- Record Header (clickable) -->
+            <view class="record-header" bindtap="toggleWeek" data-id="{{item.id}}">
+              <view class="record-title">
+                <text class="record-week">🎾 {{item.dateFormatted}}</text>
+              </view>
+              <view class="record-summary">
+                <text class="net-amount {{item.netAmount >= 0 ? 'positive' : 'negative'}}">
+                  {{item.netAmount >= 0 ? '+' : ''}}{{item.netAmount}}
+                </text>
+                <text class="expand-icon">{{expandedWeeks[item.id] ? '▲' : '▼'}}</text>
+              </view>
+            </view>
+
+            <!-- Record Details (expandable) -->
+            <view class="record-details" wx:if="{{expandedWeeks[item.id]}}">
+              <!-- Income -->
+              <view class="detail-group" wx:if="{{item.income.length > 0}}">
+                <view class="detail-label income-label">Income</view>
+                <view class="detail-items">
+                  <view class="detail-item" wx:for="{{item.income}}" wx:key="id" wx:for-item="incomeItem">
+                    <text class="item-name">{{incomeItem.name}}</text>
+                    <text class="item-amount income-amount">+{{incomeItem.amount}}</text>
+                  </view>
+                </view>
+              </view>
+
+              <!-- Expense -->
+              <view class="detail-group" wx:if="{{item.expense.length > 0}}">
+                <view class="detail-label expense-label">Expense</view>
+                <view class="detail-items">
+                  <view class="detail-item" wx:for="{{item.expense}}" wx:key="id" wx:for-item="expenseItem">
+                    <text class="item-name">{{expenseItem.name}}</text>
+                    <text class="item-amount expense-amount">-{{expenseItem.amount}}</text>
+                  </view>
+                </view>
+              </view>
+
+              <!-- Net -->
+              <view class="detail-net">
+                <text class="net-label">Net:</text>
+                <text class="net-value {{item.netAmount >= 0 ? 'positive' : 'negative'}}">
+                  ¥ {{item.netAmount >= 0 ? '+' : ''}}{{item.netAmount}}
+                </text>
+              </view>
+            </view>
+          </view>
+        </block>
+      </view>
+    </view>
+
+    <!-- Empty State -->
+    <view class="empty-state" wx:if="{{records.length === 0}}">
+      <view class="empty-icon">📊</view>
+      <view class="empty-text">No records yet</view>
+    </view>
+
+    <!-- Footer -->
+    <view class="footer" wx:if="{{records.length > 0}}">
+      <text>Updated weekly after each session</text>
+    </view>
+  </block>
+</view>
+
