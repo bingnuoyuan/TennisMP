@@ -171,7 +171,7 @@ Page({
     }
 
     wx.navigateTo({
-      url: `/pages/booking/index?id=${id}&price=${activity.price}&title=${encodeURIComponent(activity.title)}`
+      url: `/packageSub/pages/booking/index?id=${id}&price=${activity.price}&title=${encodeURIComponent(activity.title)}`
     });
   },
 

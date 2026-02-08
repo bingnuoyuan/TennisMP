@@ -26,7 +26,7 @@ Page({
         const photos = [];
         for (let i = 0; i < count; i++) {
           const num = (startNum + i).toString().padStart(3, '0');
-          const path = `/images/gallery/photo-${num}.jpg`;
+          const path = `/packageGallery/images/gallery/photo-${num}.jpg`;
           photos.push({ id: startNum + i, url: path, thumbnail: path });
         }
         return photos;

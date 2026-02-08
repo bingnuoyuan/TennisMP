@@ -133,28 +133,28 @@ Page({
   // Go to my events
   goToMyActivities: function () {
     wx.navigateTo({
-      url: '/pages/my-activities/index'
+      url: '/packageSub/pages/my-activities/index'
     });
   },
 
   // Go to my stats
   goToMyStats: function () {
     wx.navigateTo({
-      url: '/pages/my-stats/index'
+      url: '/packageSub/pages/my-stats/index'
     });
   },
 
   // Go to photo gallery
   goToPhotoGallery: function () {
     wx.navigateTo({
-      url: '/pages/photo-gallery/index'
+      url: '/packageGallery/pages/photo-gallery/index'
     });
   },
 
   // Go to club funds
   goToClubFunds: function () {
     wx.navigateTo({
-      url: '/pages/club-funds/index'
+      url: '/packageSub/pages/club-funds/index'
     });
   },
 
@@ -183,5 +183,7 @@ Page({
     });
   }
 });
+
+
 
 

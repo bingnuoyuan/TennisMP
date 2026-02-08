@@ -1,14 +1,34 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/activity-detail/index",
-    "pages/booking/index",
-    "pages/profile/index",
-    "pages/my-activities/index",
-    "pages/my-stats/index",
-    "pages/photo-gallery/index",
-    "pages/club-funds/index"
+    "pages/profile/index"
   ],
+  "subPackages": [
+    {
+      "root": "packageSub",
+      "name": "sub",
+      "pages": [
+        "pages/activity-detail/index",
+        "pages/booking/index",
+        "pages/my-activities/index",
+        "pages/my-stats/index",
+        "pages/club-funds/index"
+      ]
+    },
+    {
+      "root": "packageGallery",
+      "name": "gallery",
+      "pages": [
+        "pages/photo-gallery/index"
+      ]
+    }
+  ],
+  "preloadRule": {
+    "pages/index/index": {
+      "network": "all",
+      "packages": ["sub"]
+    }
+  },
   "window": {
     "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#111111",
@@ -39,5 +59,7 @@
   "sitemapLocation": "sitemap.json",
   "style": "v2"
 }
+
+
 
 

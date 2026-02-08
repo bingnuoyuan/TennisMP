@@ -100,7 +100,7 @@ Page({
   goToDetail: function (e) {
     const id = e.currentTarget.dataset.id;
     wx.navigateTo({
-      url: `/pages/activity-detail/index?id=${id}`
+      url: `/packageSub/pages/activity-detail/index?id=${id}`
     });
   },
 
